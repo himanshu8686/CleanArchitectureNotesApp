@@ -7,8 +7,10 @@ import com.cleanarchitecturenotesapp.ui.theme.OceanBlue
 import com.cleanarchitecturenotesapp.ui.theme.RedOrange
 import com.cleanarchitecturenotesapp.ui.theme.RedPink
 import com.cleanarchitecturenotesapp.ui.theme.Violet
+import kotlinx.serialization.Serializable
 
 @Entity
+@Serializable
 data class Note(
     @PrimaryKey val id: Int? = null,
     val title: String,

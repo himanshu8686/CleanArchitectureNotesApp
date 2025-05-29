@@ -5,6 +5,8 @@ plugins {
 
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.ksp)
+
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -54,6 +56,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.gson)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

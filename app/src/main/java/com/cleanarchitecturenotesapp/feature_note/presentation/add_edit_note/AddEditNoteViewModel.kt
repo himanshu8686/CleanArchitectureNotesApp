@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.cleanarchitecturenotesapp.feature_note.domain.exceptions.InvalidNoteException
 import com.cleanarchitecturenotesapp.feature_note.domain.model.Note
 import com.cleanarchitecturenotesapp.feature_note.domain.use_case.NoteUseCases
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -23,10 +24,13 @@ class AddEditNoteViewModel @Inject constructor(
     private var currentNoteId:Int ?= null
 
     init {
-        savedStateHandle.get<Int>("noteId")?.let { noteId ->
-            if (noteId != -1){
+        val noteJson = savedStateHandle.get<String>("note")
+        val note = Gson().fromJson(noteJson, Note::class.java)
+
+        if (note != null) {
+            if (note.id != null && note.id != -1){
                 viewModelScope.launch {
-                    noteUseCases.getSingleNoteUseCase(id= noteId)?.also { note ->
+                    noteUseCases.getSingleNoteUseCase(id= note.id)?.also { note ->
                         currentNoteId = note.id
 
                         // setting title

@@ -39,6 +39,7 @@ import androidx.navigation.NavController
 import com.cleanarchitecturenotesapp.feature_note.presentation.notes.components.NoteItem
 import com.cleanarchitecturenotesapp.feature_note.presentation.notes.components.OrderSection
 import com.cleanarchitecturenotesapp.feature_note.presentation.util.ScreenRoutes
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 @Composable
@@ -55,7 +56,7 @@ fun NotesScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                navController.navigate(ScreenRoutes.AddEditNoteScreen.route)
+                navController.navigate(route = ScreenRoutes.AddEditNoteScreenRoute())
             }) {
                 Icon(Icons.Default.Add, contentDescription = "Add")
             }
@@ -115,8 +116,11 @@ fun NotesScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
+                                val noteJson = Gson().toJson(note)
                                 navController.navigate(
-                                    ScreenRoutes.AddEditNoteScreen.route + "?noteId=${note.id}&noteColor=${note.color}"
+                                    route = ScreenRoutes.AddEditNoteScreenRoute(
+                                        note = noteJson
+                                    )
                                 )
                             },
                         note = note,

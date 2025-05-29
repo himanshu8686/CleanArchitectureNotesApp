@@ -1,6 +1,12 @@
 package com.cleanarchitecturenotesapp.feature_note.presentation.util
+import kotlinx.serialization.Serializable
 
-sealed class ScreenRoutes(val route: String){
-    data object NotesScreen: ScreenRoutes("notes_screen")
-    data object AddEditNoteScreen: ScreenRoutes("add_edit_notes_screen")
+sealed class ScreenRoutes{
+    @Serializable
+    data object NotesScreenRoute: ScreenRoutes()
+
+    @Serializable
+    data class AddEditNoteScreenRoute(
+        val note: String ?= null
+    ): ScreenRoutes()
 }
