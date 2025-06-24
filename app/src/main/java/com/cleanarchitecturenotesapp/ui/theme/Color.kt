@@ -15,3 +15,7 @@ val RedPink = Color(0xFFf48fb1)
 val OceanBlue = Color(0xFF81deea)
 val Violet = Color(0xFFcf94da)
 val LightGreen = Color(0xFFe7ed9b)
+
+val Black = Color(0xFF000000)
+val White = Color(0xFFffffff)
+val Red = Color(0xFFF44336)

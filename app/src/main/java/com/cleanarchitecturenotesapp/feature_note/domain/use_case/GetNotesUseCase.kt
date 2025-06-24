@@ -29,6 +29,9 @@ class GetNotesUseCase(
                         is NoteOrder.Color -> {
                             note.sortedBy { it.color }
                         }
+                        is NoteOrder.Fav -> {
+                            note.sortedBy { it.isWishListed }
+                        }
                     }
                 }
                 is OrderType.Descending -> {
@@ -41,6 +44,10 @@ class GetNotesUseCase(
                         }
                         is NoteOrder.Color -> {
                             note.sortedByDescending { it.color }
+                        }
+
+                        is NoteOrder.Fav -> {
+                            note.sortedByDescending { it.isWishListed }
                         }
                     }
                 }

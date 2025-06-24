@@ -124,6 +124,12 @@ fun NotesScreen(
                                 )
                             },
                         note = note,
+                        onWishListClick = {
+                            if (note.id != null) {
+                                //viewModel.onEvent(NotesEvent.WishListNote(id = note.id, isWishListed = !note.isWishListed))
+                                viewModel.onEvent(NotesEvent.WishListNote(note.copy(isWishListed = !note.isWishListed)))
+                            }
+                        },
                         onDeleteClick = {
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
 

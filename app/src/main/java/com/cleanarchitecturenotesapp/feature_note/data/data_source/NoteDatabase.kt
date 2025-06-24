@@ -7,7 +7,8 @@ import com.cleanarchitecturenotesapp.feature_note.domain.model.Note
 
 @Database(
     entities = [Note::class],
-    version = 1
+    exportSchema = true,
+    version = 2
 )
 abstract class NoteDatabase: RoomDatabase() {
     abstract val noteDao: NoteDao

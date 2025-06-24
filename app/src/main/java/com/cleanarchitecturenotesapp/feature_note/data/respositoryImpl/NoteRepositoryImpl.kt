@@ -23,4 +23,9 @@ class NoteRepositoryImpl(
     override suspend fun deleteNote(note: Note) {
         return noteDao.deleteNote(note)
     }
+
+    override suspend fun wishListNote(note: Note/*id: Int, isWishListed: Boolean*/) {
+        //return noteDao.wishListNote(id = id, isWishListed = isWishListed)
+        return noteDao.wishListNote(note)
+    }
 }

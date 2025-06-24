@@ -12,11 +12,12 @@ import kotlinx.serialization.Serializable
 @Entity
 @Serializable
 data class Note(
-    @PrimaryKey val id: Int? = null,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val title: String,
     val content: String,
     val timestamp: Long,
-    val color: Int
+    val color: Int,
+    val isWishListed: Boolean = false
 ) {
     companion object {
         val noteColors = listOf(RedPink, OceanBlue, RedOrange, LightGreen, Violet)

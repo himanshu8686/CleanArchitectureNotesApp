@@ -12,4 +12,7 @@ interface NoteRepository {
     suspend fun insertNote(note: Note)
 
     suspend fun deleteNote(note: Note)
+
+    //suspend fun wishListNote(id: Int, isWishListed: Boolean)
+    suspend fun wishListNote(note: Note)
 }

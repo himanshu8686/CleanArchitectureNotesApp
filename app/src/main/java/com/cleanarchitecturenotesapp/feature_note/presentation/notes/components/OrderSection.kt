@@ -49,6 +49,16 @@ fun OrderSection(
                     onOrderChange(NoteOrder.Color(noteOrder.orderType))
                 }
             )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            DefaultRadioButton(
+                text = "Favourites",
+                selected = noteOrder is NoteOrder.Fav,
+                onSelect = {
+                    onOrderChange(NoteOrder.Fav(noteOrder.orderType))
+                }
+            )
             
         }
         
