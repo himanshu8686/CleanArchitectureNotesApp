@@ -62,6 +62,13 @@ class NotesViewModel @Inject constructor(
                     isOrderSectionVisible = !state.value.isOrderSectionVisible
                 )
             }
+
+            is NotesEvent.WishListNote -> {
+                viewModelScope.launch {
+                    //noteUseCases.wishListNoteUseCase(id = event.id, isWishListed = event.isWishListed)
+                    noteUseCases.wishListNoteUseCase(note = event.note)
+                }
+            }
         }
     }
 

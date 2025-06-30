@@ -20,15 +20,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.cleanarchitecturenotesapp.R
 import com.cleanarchitecturenotesapp.feature_note.domain.model.Note
+import com.cleanarchitecturenotesapp.ui.theme.Black
+import com.cleanarchitecturenotesapp.ui.theme.Red
+import com.cleanarchitecturenotesapp.ui.theme.White
 
 @Composable
 fun NoteItem(
     modifier: Modifier = Modifier,
     note: Note,
-    onDeleteClick: () -> Unit
+    onWishListClick: () -> Unit,
+    onDeleteClick: () -> Unit,
 ) {
     Box(
         modifier = modifier.fillMaxWidth()
@@ -46,7 +52,7 @@ fun NoteItem(
             Text(
                 text = note.title,
                 style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.inverseOnSurface,
+                color = Black,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -54,9 +60,20 @@ fun NoteItem(
             Text(
                 text = note.content,
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.inverseOnSurface,
+                color = Black,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
+            )
+        }
+
+        IconButton(
+            modifier = Modifier.align(Alignment.TopEnd),
+            onClick = onWishListClick
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_fav),
+                contentDescription = "wishlist_note",
+                tint = if (note.isWishListed) Red else White
             )
         }
 
