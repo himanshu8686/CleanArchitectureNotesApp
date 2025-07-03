@@ -14,6 +14,7 @@ import com.cleanarchitecturenotesapp.feature_note.domain.model.Note
 import com.cleanarchitecturenotesapp.feature_note.presentation.add_edit_note.AddEditNoteScreen
 import com.cleanarchitecturenotesapp.feature_note.presentation.notes.NotesScreen
 import com.cleanarchitecturenotesapp.feature_note.presentation.util.ScreenRoutes
+import com.cleanarchitecturenotesapp.feature_work_manager.presentation.image_color_filter.ImageColorFilterScreen
 import com.cleanarchitecturenotesapp.ui.theme.CleanArchitectureNotesAppTheme
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,21 +29,26 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     color = MaterialTheme.colorScheme.surface
                 ) {
-                    val  navController = rememberNavController()
+                    val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = ScreenRoutes.NotesScreenRoute
+                        startDestination = ScreenRoutes.ImageColorFilterScreenRoute
                     ) {
-                        composable<ScreenRoutes.NotesScreenRoute>{
+                        composable<ScreenRoutes.ImageColorFilterScreenRoute> {
+                            ImageColorFilterScreen()
+                        }
+
+                        composable<ScreenRoutes.NotesScreenRoute> {
                             NotesScreen(
                                 navController = navController
                             )
                         }
 
-                        composable<ScreenRoutes.AddEditNoteScreenRoute>{
+                        composable<ScreenRoutes.AddEditNoteScreenRoute> {
 
                             val args = it.toRoute<ScreenRoutes.AddEditNoteScreenRoute>()
-                            val note = args.note?.let { Gson().fromJson(args.note, Note::class.java)}
+                            val note =
+                                args.note?.let { Gson().fromJson(args.note, Note::class.java) }
 
                             AddEditNoteScreen(
                                 navController = navController,

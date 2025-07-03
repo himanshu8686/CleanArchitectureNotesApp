@@ -1,7 +1,9 @@
 package com.cleanarchitecturenotesapp.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
+import androidx.work.WorkManager
 import com.cleanarchitecturenotesapp.feature_note.data.data_source.NoteDao
 import com.cleanarchitecturenotesapp.feature_note.data.data_source.NoteDatabase
 import com.cleanarchitecturenotesapp.feature_note.data.data_source.RoomDBInitializer
@@ -13,10 +15,13 @@ import com.cleanarchitecturenotesapp.feature_note.domain.use_case.GetNotesUseCas
 import com.cleanarchitecturenotesapp.feature_note.domain.use_case.GetSingleNoteUseCase
 import com.cleanarchitecturenotesapp.feature_note.domain.use_case.NoteUseCases
 import com.cleanarchitecturenotesapp.feature_note.domain.use_case.WishListNoteUseCase
+import com.cleanarchitecturenotesapp.feature_work_manager.data.remote.FileApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
 import javax.inject.Provider
 import javax.inject.Singleton
 
@@ -54,6 +59,21 @@ object AppModule {
             getSingleNoteUseCase = GetSingleNoteUseCase(repository = repository),
             wishListNoteUseCase = WishListNoteUseCase(repository = repository)
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideFileApiService(): FileApiService {
+        return Retrofit.Builder()
+            .baseUrl("https://images.unsplash.com")
+            .build()
+            .create(FileApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideWorkManager(@ApplicationContext context: Context): WorkManager {
+        return WorkManager.getInstance(context)
     }
 
 }
