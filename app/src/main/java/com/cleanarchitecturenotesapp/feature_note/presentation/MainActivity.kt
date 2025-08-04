@@ -32,8 +32,12 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = ScreenRoutes.ImageColorFilterScreenRoute
+                        startDestination = ScreenRoutes.MainConceptScreenRoute
                     ) {
+                        composable<ScreenRoutes.MainConceptScreenRoute> {
+                            MainConceptsScreen(navController = navController)
+                        }
+
                         composable<ScreenRoutes.ImageColorFilterScreenRoute> {
                             ImageColorFilterScreen()
                         }
