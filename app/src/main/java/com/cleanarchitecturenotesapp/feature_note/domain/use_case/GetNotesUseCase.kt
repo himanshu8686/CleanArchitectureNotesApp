@@ -8,9 +8,20 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.Locale
 
+/**
+ * Use case for retrieving and sorting notes.
+ *
+ * @param repository The note repository for data access
+ */
 class GetNotesUseCase(
     private val repository: NoteRepository
 ) {
+    /**
+     * Retrieves notes from the repository and applies sorting based on the specified order.
+     *
+     * @param noteOrder The ordering criteria (default: Date descending)
+     * @return Flow emitting a sorted list of notes
+     */
     operator fun invoke(
         noteOrder: NoteOrder = NoteOrder.Date(orderType = OrderType.Descending)
     ): Flow<List<Note>>{

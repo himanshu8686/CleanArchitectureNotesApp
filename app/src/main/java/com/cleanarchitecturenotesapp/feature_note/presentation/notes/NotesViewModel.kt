@@ -15,12 +15,21 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for the Notes screen.
+ * Manages note list state and handles user events.
+ *
+ * @param noteUseCases Container for all note-related use cases
+ */
 @HiltViewModel
 class NotesViewModel @Inject constructor(
     private val noteUseCases: NoteUseCases
 ) : ViewModel() {
 
     private val _state = mutableStateOf(NotesState())
+    /**
+     * Current state of the notes screen.
+     */
     val state: State<NotesState> = _state
 
     private var getNotesJob: Job ?= null
@@ -32,6 +41,11 @@ class NotesViewModel @Inject constructor(
         )
     }
 
+    /**
+     * Handles user events from the UI.
+     *
+     * @param event The event to handle
+     */
     fun onEvent(event: NotesEvent) {
         when (event) {
             is NotesEvent.DeleteNote -> {
@@ -65,13 +79,17 @@ class NotesViewModel @Inject constructor(
 
             is NotesEvent.WishListNote -> {
                 viewModelScope.launch {
-                    //noteUseCases.wishListNoteUseCase(id = event.id, isWishListed = event.isWishListed)
                     noteUseCases.wishListNoteUseCase(note = event.note)
                 }
             }
         }
     }
 
+    /**
+     * Retrieves notes from the repository with the specified ordering.
+     *
+     * @param noteOrder The ordering criteria for notes
+     */
     private fun getNotes(noteOrder: NoteOrder) {
         getNotesJob?.cancel()
         getNotesJob = noteUseCases.getNotesUseCase(noteOrder = noteOrder)

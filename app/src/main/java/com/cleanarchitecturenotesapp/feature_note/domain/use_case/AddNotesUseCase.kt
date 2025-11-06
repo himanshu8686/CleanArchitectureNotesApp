@@ -4,10 +4,23 @@ import com.cleanarchitecturenotesapp.feature_note.domain.exceptions.InvalidNoteE
 import com.cleanarchitecturenotesapp.feature_note.domain.model.Note
 import com.cleanarchitecturenotesapp.feature_note.domain.repository.NoteRepository
 
+/**
+ * Use case for adding or updating a note.
+ * Validates note data before insertion.
+ *
+ * @param repository The note repository for data access
+ */
 class AddNotesUseCase(
     private val repository: NoteRepository
 ) {
 
+    /**
+     * Validates and inserts/updates a note.
+     * Throws InvalidNoteException if validation fails.
+     *
+     * @param note The note to add or update
+     * @throws InvalidNoteException If title or content is blank
+     */
     @Throws(InvalidNoteException::class)
     suspend operator fun invoke(note: Note) {
 

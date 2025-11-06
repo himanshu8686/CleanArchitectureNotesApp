@@ -14,6 +14,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.cleanarchitecturenotesapp.feature_note.presentation.util.ScreenRoutes
 
+/**
+ * Main concepts screen displaying navigation options.
+ * Provides buttons to navigate to different features of the app.
+ *
+ * @param navController Navigation controller for screen navigation
+ */
 @Composable
 fun MainConceptsScreen(
     navController: NavController

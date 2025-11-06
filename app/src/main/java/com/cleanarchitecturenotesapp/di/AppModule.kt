@@ -25,14 +25,32 @@ import retrofit2.Retrofit
 import javax.inject.Provider
 import javax.inject.Singleton
 
+/**
+ * Dagger Hilt module providing dependency injection for the application.
+ * All dependencies are provided as singletons.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    /**
+     * Provides NoteDao instance from the database.
+     *
+     * @param db The NoteDatabase instance
+     * @return NoteDao instance for database operations
+     */
     @Provides
     @Singleton
     fun provideUserDao(db: NoteDatabase): NoteDao = db.noteDao
 
+    /**
+     * Provides NoteDatabase instance with Room database builder.
+     * Includes database initialization callback for populating initial data.
+     *
+     * @param app Application instance
+     * @param notesProvider Provider for NoteDao to initialize database
+     * @return Configured NoteDatabase instance
+     */
     @Provides
     @Singleton
     fun providesNoteDatabase(app: Application, notesProvider: Provider<NoteDao>): NoteDatabase {
@@ -43,12 +61,24 @@ object AppModule {
             .build()
     }
 
+    /**
+     * Provides NoteRepository implementation.
+     *
+     * @param noteDatabase The NoteDatabase instance
+     * @return NoteRepositoryImpl instance
+     */
     @Provides
     @Singleton
     fun providesNoteRepository(noteDatabase: NoteDatabase): NoteRepository {
         return NoteRepositoryImpl(noteDao = noteDatabase.noteDao)
     }
 
+    /**
+     * Provides NoteUseCases container with all use case instances.
+     *
+     * @param repository The NoteRepository instance
+     * @return NoteUseCases containing all note-related use cases
+     */
     @Provides
     @Singleton
     fun provideNoteUseCases(repository: NoteRepository): NoteUseCases {
@@ -61,6 +91,11 @@ object AppModule {
         )
     }
 
+    /**
+     * Provides FileApiService for downloading images.
+     *
+     * @return Configured FileApiService instance
+     */
     @Provides
     @Singleton
     fun provideFileApiService(): FileApiService {
@@ -70,6 +105,12 @@ object AppModule {
             .create(FileApiService::class.java)
     }
 
+    /**
+     * Provides WorkManager instance for background work.
+     *
+     * @param context Application context
+     * @return WorkManager instance
+     */
     @Singleton
     @Provides
     fun provideWorkManager(@ApplicationContext context: Context): WorkManager {

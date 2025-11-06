@@ -29,6 +29,15 @@ import com.cleanarchitecturenotesapp.ui.theme.Black
 import com.cleanarchitecturenotesapp.ui.theme.Red
 import com.cleanarchitecturenotesapp.ui.theme.White
 
+/**
+ * Composable component for displaying a single note item.
+ * Shows note title, content, and provides wishlist and delete actions.
+ *
+ * @param modifier Modifier to be applied to the note item
+ * @param note The note to display
+ * @param onWishListClick Callback invoked when wishlist button is clicked
+ * @param onDeleteClick Callback invoked when delete button is clicked
+ */
 @Composable
 fun NoteItem(
     modifier: Modifier = Modifier,

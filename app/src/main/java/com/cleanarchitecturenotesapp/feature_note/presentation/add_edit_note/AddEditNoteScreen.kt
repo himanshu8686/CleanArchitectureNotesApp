@@ -44,6 +44,14 @@ import com.cleanarchitecturenotesapp.ui.theme.appComponents.appTextField.remembe
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * Screen for adding a new note or editing an existing note.
+ * Allows users to set title, content, and color for a note.
+ *
+ * @param navController Navigation controller for screen navigation
+ * @param note Optional note to edit (null for new note)
+ * @param viewModel ViewModel for managing note editing state
+ */
 @Composable
 fun AddEditNoteScreen(
     navController: NavController,

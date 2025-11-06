@@ -4,8 +4,16 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
 
+/**
+ * Retrofit API service for downloading images.
+ */
 interface FileApiService {
 
+    /**
+     * Downloads an image from Unsplash.
+     *
+     * @return Response containing the image data as ResponseBody
+     */
     @GET("/photo-1500648767791-00dcc994a43e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29uYXxlbnwwfHwwfHx8MA%3D%3D")
     suspend fun downloadImage(): Response<ResponseBody>
 }

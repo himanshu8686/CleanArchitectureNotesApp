@@ -19,8 +19,17 @@ import com.cleanarchitecturenotesapp.ui.theme.CleanArchitectureNotesAppTheme
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Main activity of the application.
+ * Sets up navigation and theme.
+ */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    /**
+     * Initializes the activity and sets up the navigation graph.
+     *
+     * @param savedInstanceState Previously saved instance state
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

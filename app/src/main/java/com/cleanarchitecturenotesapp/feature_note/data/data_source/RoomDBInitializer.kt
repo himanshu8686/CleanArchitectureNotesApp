@@ -11,11 +11,22 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Provider
 
+/**
+ * Callback for initializing the Room database with sample data.
+ *
+ * @param notesProvider Provider for NoteDao to access database
+ */
 class RoomDBInitializer(
     private val notesProvider: Provider<NoteDao>,
 ) : RoomDatabase.Callback() {
     private val applicationScope = CoroutineScope(SupervisorJob())
 
+    /**
+     * Called when the database is created for the first time.
+     * Populates the database with initial sample notes.
+     *
+     * @param db The database instance
+     */
     override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
         applicationScope.launch(Dispatchers.IO) {
@@ -23,6 +34,9 @@ class RoomDBInitializer(
         }
     }
 
+    /**
+     * Populates the database with sample notes from the generator.
+     */
     private suspend fun populateNotes() {
         notesProvider.get().insertOrUpdateNotes(*notesGenerator.take(10).toList().toTypedArray())
     }

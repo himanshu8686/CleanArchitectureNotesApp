@@ -33,6 +33,14 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+/**
+ * Main theme composable for the Clean Architecture Notes App.
+ * Supports dynamic colors on Android 12+ and light/dark themes.
+ *
+ * @param darkTheme Whether to use dark theme (defaults to system setting)
+ * @param dynamicColor Whether to use dynamic colors (Android 12+)
+ * @param content The composable content to apply the theme to
+ */
 @Composable
 fun CleanArchitectureNotesAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

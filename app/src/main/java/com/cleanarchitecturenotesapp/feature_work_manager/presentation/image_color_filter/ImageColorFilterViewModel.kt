@@ -18,20 +18,35 @@ import kotlinx.coroutines.flow.onEach
 import java.util.UUID
 import javax.inject.Inject
 
+/**
+ * ViewModel for the Image Color Filter screen.
+ * Manages WorkManager workers for downloading and filtering images.
+ *
+ * @param workManager WorkManager instance for background work
+ */
 @HiltViewModel
 class ImageColorFilterViewModel @Inject constructor(
     private val workManager: WorkManager
 ): ViewModel() {
 
     private val _workStatusList = MutableStateFlow<List<WorkInfo>>(emptyList())
+    /**
+     * Flow of work status information for all image-related work.
+     */
     val workStatusList: StateFlow<List<WorkInfo>> = _workStatusList
 
     private var _downloadRequestId: UUID? = null
     private var _colorFilterRequestId: UUID? = null
 
+    /**
+     * ID of the download work request.
+     */
     val downloadRequestId: UUID?
         get() = _downloadRequestId
 
+    /**
+     * ID of the color filter work request.
+     */
     val colorFilterRequestId: UUID?
         get() = _colorFilterRequestId
 
@@ -45,6 +60,10 @@ class ImageColorFilterViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
+    /**
+     * Starts the download and color filter workers in sequence.
+     * Download worker runs first, then color filter worker processes the downloaded image.
+     */
     fun startWorkers() {
         val downloadRequest = OneTimeWorkRequestBuilder<DownloadWorker>()
             .setConstraints(constraintsBuilder)

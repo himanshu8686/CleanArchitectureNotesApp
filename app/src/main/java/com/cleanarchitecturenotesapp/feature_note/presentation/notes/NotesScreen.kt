@@ -42,6 +42,13 @@ import com.cleanarchitecturenotesapp.feature_note.presentation.util.ScreenRoutes
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
+/**
+ * Main screen displaying the list of notes.
+ * Allows users to view, sort, delete, and navigate to note details.
+ *
+ * @param navController Navigation controller for screen navigation
+ * @param viewModel ViewModel for managing notes state
+ */
 @Composable
 fun NotesScreen(
     navController: NavController,
