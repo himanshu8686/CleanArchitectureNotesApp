@@ -13,12 +13,12 @@ import com.cleanarchitecturenotesapp.feature_note.domain.util.NoteOrder
 import com.cleanarchitecturenotesapp.feature_note.domain.util.OrderType
 
 /**
- * Composable component for note ordering/sorting options.
- * Allows users to select sorting criteria (Title, Date, Color, Favorites) and order direction (Ascending/Descending).
+ * Composable function that displays a section for ordering notes.
+ * Provides radio buttons for selecting order type (Title, Date, Color, Favourites) and order direction (Ascending, Descending).
  *
- * @param modifier Modifier to be applied to the order section
- * @param noteOrder Current note ordering configuration
- * @param onOrderChange Callback invoked when the ordering changes
+ * @param modifier Modifier to be applied to the OrderSection
+ * @param noteOrder Current note order configuration
+ * @param onOrderChange Callback invoked when the order changes
  */
 @Composable
 fun OrderSection(

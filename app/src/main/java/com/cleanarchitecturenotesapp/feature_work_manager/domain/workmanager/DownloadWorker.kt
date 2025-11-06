@@ -15,14 +15,6 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 
-/**
- * WorkManager worker for downloading images from the network.
- * Downloads an image and saves it to the cache directory.
- *
- * @param fileApiService API service for downloading images
- * @param context Application context
- * @param workerParameters Worker parameters
- */
 @HiltWorker
 class DownloadWorker @AssistedInject constructor(
     private val fileApiService: FileApiService,
@@ -31,10 +23,9 @@ class DownloadWorker @AssistedInject constructor(
 ) : CoroutineWorker(context, workerParameters) {
 
     /**
-     * Performs the download work.
-     * Downloads an image and saves it to cache, returning the file URI.
+     * Downloads an image from the API and saves it to the app's cache directory.
      *
-     * @return Result indicating success, failure, or retry
+     * @return Result indicating success, failure, or retry status of the download operation
      */
     override suspend fun doWork(): Result {
         delay(10000L)

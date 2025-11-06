@@ -5,17 +5,11 @@ import com.cleanarchitecturenotesapp.feature_note.domain.model.Note
 import com.cleanarchitecturenotesapp.feature_note.domain.repository.NoteRepository
 import kotlinx.coroutines.flow.Flow
 
-/**
- * Implementation of NoteRepository interface.
- * Provides data access operations using Room database.
- *
- * @param noteDao Data Access Object for note operations
- */
 class NoteRepositoryImpl(
     private val noteDao: NoteDao
 ): NoteRepository {
     /**
-     * Retrieves all notes as a Flow.
+     * Retrieves all notes from the database as a Flow.
      *
      * @return Flow emitting a list of all notes
      */
@@ -34,9 +28,9 @@ class NoteRepositoryImpl(
     }
 
     /**
-     * Inserts a new note into the database.
+     * Inserts or updates a note in the database.
      *
-     * @param note The note to insert
+     * @param note The note to insert or update
      */
     override suspend fun insertNote(note: Note) {
         return noteDao.insertNote(note)
@@ -56,7 +50,8 @@ class NoteRepositoryImpl(
      *
      * @param note The note with updated wishlist status
      */
-    override suspend fun wishListNote(note: Note) {
+    override suspend fun wishListNote(note: Note/*id: Int, isWishListed: Boolean*/) {
+        //return noteDao.wishListNote(id = id, isWishListed = isWishListed)
         return noteDao.wishListNote(note)
     }
 }

@@ -28,10 +28,10 @@ import coil.compose.rememberAsyncImagePainter
 import com.cleanarchitecturenotesapp.feature_work_manager.domain.workmanager.WorkerKeys
 
 /**
- * Screen demonstrating WorkManager usage for downloading and filtering images.
- * Shows download progress and displays the processed image.
+ * Composable function that displays the image color filter screen.
+ * Shows download progress and filtered image results from work manager tasks.
  *
- * @param imageColorFilterViewModel ViewModel for managing work status
+ * @param imageColorFilterViewModel ViewModel that manages work manager tasks and state
  */
 @Composable
 fun ImageColorFilterScreen(

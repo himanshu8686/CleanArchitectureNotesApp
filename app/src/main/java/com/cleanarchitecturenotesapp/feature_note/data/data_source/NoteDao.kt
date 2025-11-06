@@ -10,14 +10,10 @@ import androidx.room.Upsert
 import com.cleanarchitecturenotesapp.feature_note.domain.model.Note
 import kotlinx.coroutines.flow.Flow
 
-/**
- * Data Access Object (DAO) for Note entity.
- * Provides database operations for notes.
- */
 @Dao
 interface NoteDao {
     /**
-     * Inserts or updates multiple notes.
+     * Inserts or updates multiple notes in the database.
      *
      * @param notes Variable number of notes to insert or update
      */
@@ -25,7 +21,7 @@ interface NoteDao {
     suspend fun insertOrUpdateNotes(vararg notes: Note)
 
     /**
-     * Retrieves all notes as a Flow.
+     * Retrieves all notes from the database as a Flow.
      *
      * @return Flow emitting a list of all notes
      */
@@ -42,7 +38,7 @@ interface NoteDao {
     suspend fun getNoteById(id:Int): Note?
 
     /**
-     * Inserts a new note or replaces if it already exists.
+     * Inserts a note into the database, replacing if it already exists.
      *
      * @param note The note to insert
      */
@@ -58,10 +54,11 @@ interface NoteDao {
     suspend fun deleteNote(note: Note)
 
     /**
-     * Updates a note (used for wishlist status updates).
+     * Updates the wishlist status of a note.
      *
-     * @param note The note with updated information
+     * @param note The note with updated wishlist status
      */
+    //@Query("UPDATE note SET isWishListed = :isWishListed WHERE id =:id")
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun wishListNote(note: Note)
 }

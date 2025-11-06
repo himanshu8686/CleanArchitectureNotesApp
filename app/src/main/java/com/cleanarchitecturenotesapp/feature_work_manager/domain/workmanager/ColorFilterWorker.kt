@@ -17,13 +17,6 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 
-/**
- * WorkManager worker for applying color filter to images.
- * Processes an image by applying a lighting color filter and saves the result.
- *
- * @param context Application context
- * @param workerParameters Worker parameters containing the input image URI
- */
 @HiltWorker
 class ColorFilterWorker @AssistedInject constructor(
     @Assisted private val context: Context,
@@ -31,10 +24,9 @@ class ColorFilterWorker @AssistedInject constructor(
 ) : CoroutineWorker(context, workerParameters) {
 
     /**
-     * Performs the color filter work.
-     * Applies a color filter to the input image and saves the result.
+     * Applies a red color filter to the downloaded image and saves it to cache.
      *
-     * @return Result indicating success or failure
+     * @return Result indicating success or failure of the color filter operation
      */
     override suspend fun doWork(): Result {
         val imageFile =

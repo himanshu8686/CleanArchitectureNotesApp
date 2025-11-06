@@ -25,31 +25,26 @@ import retrofit2.Retrofit
 import javax.inject.Provider
 import javax.inject.Singleton
 
-/**
- * Dagger Hilt module providing dependency injection for the application.
- * All dependencies are provided as singletons.
- */
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
     /**
-     * Provides NoteDao instance from the database.
+     * Provides the NoteDao instance from the database.
      *
      * @param db The NoteDatabase instance
-     * @return NoteDao instance for database operations
+     * @return The NoteDao instance
      */
     @Provides
     @Singleton
     fun provideUserDao(db: NoteDatabase): NoteDao = db.noteDao
 
     /**
-     * Provides NoteDatabase instance with Room database builder.
-     * Includes database initialization callback for populating initial data.
+     * Provides the NoteDatabase instance with Room database builder.
      *
-     * @param app Application instance
-     * @param notesProvider Provider for NoteDao to initialize database
-     * @return Configured NoteDatabase instance
+     * @param app The Application instance
+     * @param notesProvider Provider for NoteDao to initialize the database
+     * @return The NoteDatabase instance
      */
     @Provides
     @Singleton
@@ -62,10 +57,10 @@ object AppModule {
     }
 
     /**
-     * Provides NoteRepository implementation.
+     * Provides the NoteRepository implementation.
      *
      * @param noteDatabase The NoteDatabase instance
-     * @return NoteRepositoryImpl instance
+     * @return The NoteRepository implementation
      */
     @Provides
     @Singleton
@@ -74,10 +69,10 @@ object AppModule {
     }
 
     /**
-     * Provides NoteUseCases container with all use case instances.
+     * Provides all note use cases as a single NoteUseCases instance.
      *
      * @param repository The NoteRepository instance
-     * @return NoteUseCases containing all note-related use cases
+     * @return The NoteUseCases instance containing all use cases
      */
     @Provides
     @Singleton
@@ -92,9 +87,9 @@ object AppModule {
     }
 
     /**
-     * Provides FileApiService for downloading images.
+     * Provides the FileApiService instance using Retrofit.
      *
-     * @return Configured FileApiService instance
+     * @return The FileApiService instance
      */
     @Provides
     @Singleton
@@ -106,10 +101,10 @@ object AppModule {
     }
 
     /**
-     * Provides WorkManager instance for background work.
+     * Provides the WorkManager instance for the application.
      *
-     * @param context Application context
-     * @return WorkManager instance
+     * @param context The application context
+     * @return The WorkManager instance
      */
     @Singleton
     @Provides

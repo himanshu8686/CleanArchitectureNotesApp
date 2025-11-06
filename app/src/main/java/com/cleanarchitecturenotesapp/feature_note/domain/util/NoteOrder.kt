@@ -1,31 +1,11 @@
 package com.cleanarchitecturenotesapp.feature_note.domain.util
 
-/**
- * Sealed class representing different ordering options for notes.
- *
- * @property orderType The type of ordering (Ascending or Descending)
- */
 sealed class NoteOrder(
     open val orderType: OrderType
 ) {
-    /**
-     * Order notes by title.
-     */
     class Title(orderType: OrderType): NoteOrder(orderType)
-    
-    /**
-     * Order notes by date/timestamp.
-     */
     class Date(orderType: OrderType): NoteOrder(orderType)
-    
-    /**
-     * Order notes by color.
-     */
     class Color(orderType: OrderType): NoteOrder(orderType)
-    
-    /**
-     * Order notes by favorite/wishlist status.
-     */
     class Fav(orderType: OrderType): NoteOrder(orderType)
 
     /**

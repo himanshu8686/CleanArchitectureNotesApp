@@ -4,13 +4,10 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
 
-/**
- * Retrofit API service for downloading images.
- */
 interface FileApiService {
 
     /**
-     * Downloads an image from Unsplash.
+     * Downloads an image from the Unsplash API.
      *
      * @return Response containing the image data as ResponseBody
      */

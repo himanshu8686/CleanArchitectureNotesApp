@@ -15,10 +15,10 @@ import androidx.navigation.NavController
 import com.cleanarchitecturenotesapp.feature_note.presentation.util.ScreenRoutes
 
 /**
- * Main concepts screen displaying navigation options.
- * Provides buttons to navigate to different features of the app.
+ * Composable function that displays the main concepts screen with navigation buttons.
+ * Provides access to work manager concept and clean architecture notes features.
  *
- * @param navController Navigation controller for screen navigation
+ * @param navController Navigation controller for navigating to different screens
  */
 @Composable
 fun MainConceptsScreen(

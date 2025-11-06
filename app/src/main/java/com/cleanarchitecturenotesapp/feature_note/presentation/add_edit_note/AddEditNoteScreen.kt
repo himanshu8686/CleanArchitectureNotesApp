@@ -45,12 +45,12 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 /**
- * Screen for adding a new note or editing an existing note.
- * Allows users to set title, content, and color for a note.
+ * Composable function that displays the screen for adding or editing a note.
+ * Allows users to set note title, content, and color.
  *
- * @param navController Navigation controller for screen navigation
- * @param note Optional note to edit (null for new note)
- * @param viewModel ViewModel for managing note editing state
+ * @param navController Navigation controller for navigating back after saving
+ * @param note Optional note to edit, null for creating a new note
+ * @param viewModel ViewModel that manages the add/edit note state and business logic
  */
 @Composable
 fun AddEditNoteScreen(

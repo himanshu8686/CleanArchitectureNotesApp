@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 /**
- * Custom text field component that supports both outlined and filled styles.
- * Wraps Material3 TextField and OutlinedTextField with unified parameters.
+ * Composable function that displays a customizable text field component.
+ * Supports both outlined and filled styles based on the provided parameters.
  *
  * @param params Configuration parameters for the text field
  */

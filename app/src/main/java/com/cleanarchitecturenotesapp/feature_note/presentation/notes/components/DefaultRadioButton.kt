@@ -13,10 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 /**
- * Composable component for a radio button with text label.
+ * Composable function that displays a radio button with a label.
  *
- * @param text The text label to display next to the radio button
- * @param selected Whether the radio button is selected
+ * @param text Text label to display next to the radio button
+ * @param selected Whether the radio button is currently selected
  * @param onSelect Callback invoked when the radio button is clicked
  * @param modifier Modifier to be applied to the radio button row
  */

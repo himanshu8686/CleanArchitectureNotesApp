@@ -3,11 +3,6 @@ package com.cleanarchitecturenotesapp.feature_note.domain.use_case
 import com.cleanarchitecturenotesapp.feature_note.domain.model.Note
 import com.cleanarchitecturenotesapp.feature_note.domain.repository.NoteRepository
 
-/**
- * Use case for retrieving a single note by ID.
- *
- * @param repository The note repository for data access
- */
 class GetSingleNoteUseCase(
     private val repository: NoteRepository
 ) {

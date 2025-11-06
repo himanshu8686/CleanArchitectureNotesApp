@@ -43,11 +43,10 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 /**
- * Main screen displaying the list of notes.
- * Allows users to view, sort, delete, and navigate to note details.
+ * Composable function that displays the main notes screen with a list of notes, sorting options, and add note functionality.
  *
- * @param navController Navigation controller for screen navigation
- * @param viewModel ViewModel for managing notes state
+ * @param navController Navigation controller for navigating between screens
+ * @param viewModel ViewModel that manages the notes state and business logic
  */
 @Composable
 fun NotesScreen(

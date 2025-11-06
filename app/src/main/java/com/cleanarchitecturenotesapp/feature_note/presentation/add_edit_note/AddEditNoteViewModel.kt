@@ -15,13 +15,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/**
- * ViewModel for the Add/Edit Note screen.
- * Manages note editing state and handles note save operations.
- *
- * @param noteUseCases Container for all note-related use cases
- * @param savedStateHandle Saved state handle for retrieving navigation arguments
- */
 @HiltViewModel
 class AddEditNoteViewModel @Inject constructor(
     private val noteUseCases: NoteUseCases,
@@ -60,19 +53,14 @@ class AddEditNoteViewModel @Inject constructor(
         }
     }
     private val _state = mutableStateOf(AddEditNoteState())
-    /**
-     * Current state of the add/edit note screen.
-     */
     val state: State<AddEditNoteState> = _state
 
-    /**
-     * Shared flow for one-time UI events (e.g., navigation, snackbar).
-     */
+    //This is for one time event trigger
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
     /**
-     * Handles user events from the UI.
+     * Handles events from the UI layer and updates the state or performs actions accordingly.
      *
      * @param event The event to handle
      */

@@ -11,11 +11,6 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Provider
 
-/**
- * Callback for initializing the Room database with sample data.
- *
- * @param notesProvider Provider for NoteDao to access database
- */
 class RoomDBInitializer(
     private val notesProvider: Provider<NoteDao>,
 ) : RoomDatabase.Callback() {
@@ -35,7 +30,7 @@ class RoomDBInitializer(
     }
 
     /**
-     * Populates the database with sample notes from the generator.
+     * Populates the database with initial sample notes.
      */
     private suspend fun populateNotes() {
         notesProvider.get().insertOrUpdateNotes(*notesGenerator.take(10).toList().toTypedArray())
