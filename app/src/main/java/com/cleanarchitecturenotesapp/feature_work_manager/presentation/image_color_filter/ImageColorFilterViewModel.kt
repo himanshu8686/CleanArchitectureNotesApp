@@ -45,6 +45,10 @@ class ImageColorFilterViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
+    /**
+     * Starts the download and color filter workers in sequence.
+     * The download worker runs first, followed by the color filter worker.
+     */
     fun startWorkers() {
         val downloadRequest = OneTimeWorkRequestBuilder<DownloadWorker>()
             .setConstraints(constraintsBuilder)

@@ -22,6 +22,11 @@ class DownloadWorker @AssistedInject constructor(
     @Assisted private val workerParameters: WorkerParameters
 ) : CoroutineWorker(context, workerParameters) {
 
+    /**
+     * Downloads an image from the API and saves it to the app's cache directory.
+     *
+     * @return Result indicating success, failure, or retry status of the download operation
+     */
     override suspend fun doWork(): Result {
         delay(10000L)
         val response = fileApiService.downloadImage()

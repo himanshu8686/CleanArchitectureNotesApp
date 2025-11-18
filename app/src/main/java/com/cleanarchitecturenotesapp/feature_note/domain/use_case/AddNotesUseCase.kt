@@ -8,6 +8,13 @@ class AddNotesUseCase(
     private val repository: NoteRepository
 ) {
 
+    /**
+     * Adds or updates a note in the repository after validating it.
+     * Throws InvalidNoteException if the note title or content is blank.
+     *
+     * @param note The note to add or update
+     * @throws InvalidNoteException If the note title or content is blank
+     */
     @Throws(InvalidNoteException::class)
     suspend operator fun invoke(note: Note) {
 

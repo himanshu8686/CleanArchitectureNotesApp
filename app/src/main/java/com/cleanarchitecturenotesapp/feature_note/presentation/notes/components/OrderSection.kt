@@ -12,6 +12,14 @@ import androidx.compose.ui.unit.dp
 import com.cleanarchitecturenotesapp.feature_note.domain.util.NoteOrder
 import com.cleanarchitecturenotesapp.feature_note.domain.util.OrderType
 
+/**
+ * Composable function that displays a section for ordering notes.
+ * Provides radio buttons for selecting order type (Title, Date, Color, Favourites) and order direction (Ascending, Descending).
+ *
+ * @param modifier Modifier to be applied to the OrderSection
+ * @param noteOrder Current note order configuration
+ * @param onOrderChange Callback invoked when the order changes
+ */
 @Composable
 fun OrderSection(
     modifier: Modifier = Modifier,
@@ -51,16 +59,15 @@ fun OrderSection(
             )
 
             Spacer(modifier = Modifier.width(8.dp))
-
-            DefaultRadioButton(
-                text = "Favourites",
-                selected = noteOrder is NoteOrder.Fav,
-                onSelect = {
-                    onOrderChange(NoteOrder.Fav(noteOrder.orderType))
-                }
-            )
-            
         }
+
+        DefaultRadioButton(
+            text = "Favourites",
+            selected = noteOrder is NoteOrder.Fav,
+            onSelect = {
+                onOrderChange(NoteOrder.Fav(noteOrder.orderType))
+            }
+        )
         
         Spacer(modifier = Modifier.size(16.dp))
 

@@ -9,6 +9,11 @@ class WishListNoteUseCase(
     /*suspend operator fun invoke(id: Int, isWishListed: Boolean) {
         repository.wishListNote(id = id, isWishListed = isWishListed )
     }*/
+    /**
+     * Updates the wishlist status of a note.
+     *
+     * @param note The note with updated wishlist status
+     */
     suspend operator fun invoke(note: Note) {
         repository.wishListNote(note)
     }

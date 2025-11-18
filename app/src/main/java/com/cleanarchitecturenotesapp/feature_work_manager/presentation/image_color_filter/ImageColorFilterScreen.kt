@@ -27,6 +27,12 @@ import androidx.work.WorkInfo
 import coil.compose.rememberAsyncImagePainter
 import com.cleanarchitecturenotesapp.feature_work_manager.domain.workmanager.WorkerKeys
 
+/**
+ * Composable function that displays the image color filter screen.
+ * Shows download progress and filtered image results from work manager tasks.
+ *
+ * @param imageColorFilterViewModel ViewModel that manages work manager tasks and state
+ */
 @Composable
 fun ImageColorFilterScreen(
     imageColorFilterViewModel: ImageColorFilterViewModel = hiltViewModel()

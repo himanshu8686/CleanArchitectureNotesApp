@@ -11,6 +11,12 @@ import java.util.Locale
 class GetNotesUseCase(
     private val repository: NoteRepository
 ) {
+    /**
+     * Retrieves notes from the repository and applies the specified ordering.
+     *
+     * @param noteOrder The order configuration to apply to the notes, defaults to Date descending
+     * @return Flow emitting a list of notes sorted according to the specified order
+     */
     operator fun invoke(
         noteOrder: NoteOrder = NoteOrder.Date(orderType = OrderType.Descending)
     ): Flow<List<Note>>{

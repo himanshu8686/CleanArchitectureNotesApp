@@ -10,6 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+/**
+ * Composable function that displays a customizable text field component.
+ * Supports both outlined and filled styles based on the provided parameters.
+ *
+ * @param params Configuration parameters for the text field
+ */
 @Composable
 fun AppTextField(
     params: AppTextFieldParams.TextFieldParams

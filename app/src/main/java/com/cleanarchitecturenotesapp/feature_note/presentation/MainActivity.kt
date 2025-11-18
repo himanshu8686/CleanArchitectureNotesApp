@@ -21,6 +21,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    /**
+     * Initializes the activity and sets up the navigation graph with all screens.
+     *
+     * @param savedInstanceState Previously saved instance state
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,7 +37,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = ScreenRoutes.MainConceptScreenRoute
+                        startDestination = ScreenRoutes.NotesScreenRoute
                     ) {
                         composable<ScreenRoutes.MainConceptScreenRoute> {
                             MainConceptsScreen(navController = navController)

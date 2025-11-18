@@ -59,6 +59,11 @@ class AddEditNoteViewModel @Inject constructor(
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
+    /**
+     * Handles events from the UI layer and updates the state or performs actions accordingly.
+     *
+     * @param event The event to handle
+     */
     fun onEvent(event: AddEditNotesEvent) {
         when(event) {
             is AddEditNotesEvent.SaveNote -> {

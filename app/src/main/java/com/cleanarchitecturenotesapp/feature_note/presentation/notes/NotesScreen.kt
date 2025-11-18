@@ -33,15 +33,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.cleanarchitecturenotesapp.core.util.TestTags
 import com.cleanarchitecturenotesapp.feature_note.presentation.notes.components.NoteItem
 import com.cleanarchitecturenotesapp.feature_note.presentation.notes.components.OrderSection
 import com.cleanarchitecturenotesapp.feature_note.presentation.util.ScreenRoutes
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
+/**
+ * Composable function that displays the main notes screen with a list of notes, sorting options, and add note functionality.
+ *
+ * @param navController Navigation controller for navigating between screens
+ * @param viewModel ViewModel that manages the notes state and business logic
+ */
 @Composable
 fun NotesScreen(
     navController: NavController,
@@ -98,7 +106,8 @@ fun NotesScreen(
                 OrderSection(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 16.dp),
+                        .padding(vertical = 16.dp)
+                        .testTag(TestTags.ORDER_SECTION),
                     noteOrder = state.noteOrder,
                     onOrderChange = { noteOrder ->
                         viewModel.onEvent(NotesEvent.Order(noteOrder))

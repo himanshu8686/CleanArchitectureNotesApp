@@ -12,6 +12,11 @@ class NoteApp: Application(), Configuration.Provider {
     @Inject
     lateinit var hiltWorkerFactory: HiltWorkerFactory
 
+    /**
+     * Provides the WorkManager configuration with Hilt worker factory.
+     *
+     * @return The WorkManager Configuration instance
+     */
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
             .setWorkerFactory(hiltWorkerFactory)

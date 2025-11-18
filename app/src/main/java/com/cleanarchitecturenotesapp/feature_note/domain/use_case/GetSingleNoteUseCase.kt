@@ -6,6 +6,12 @@ import com.cleanarchitecturenotesapp.feature_note.domain.repository.NoteReposito
 class GetSingleNoteUseCase(
     private val repository: NoteRepository
 ) {
+    /**
+     * Retrieves a single note by its ID.
+     *
+     * @param id The ID of the note to retrieve
+     * @return The note if found, null otherwise
+     */
     suspend operator fun invoke(id: Int): Note? {
         return repository.getNoteById(id)
     }

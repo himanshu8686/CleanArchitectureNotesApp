@@ -3,6 +3,7 @@ package com.cleanarchitecturenotesapp.di
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.cleanarchitecturenotesapp.feature_note.data.data_source.NoteDao
 import com.cleanarchitecturenotesapp.feature_note.data.data_source.NoteDatabase
@@ -21,13 +22,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
+import okhttp3.ResponseBody
+import retrofit2.Response
 import javax.inject.Provider
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object TestAppModule {
 
     /**
      * Provides the NoteDao instance from the database.
@@ -39,22 +41,40 @@ object AppModule {
     @Singleton
     fun provideUserDao(db: NoteDatabase): NoteDao = db.noteDao
 
-    /**
-     * Provides the NoteDatabase instance with Room database builder.
-     *
-     * @param app The Application instance
-     * @param notesProvider Provider for NoteDao to initialize the database
-     * @return The NoteDatabase instance
-     */
     @Provides
     @Singleton
     fun providesNoteDatabase(app: Application, notesProvider: Provider<NoteDao>): NoteDatabase {
-        return Room.databaseBuilder(app, NoteDatabase::class.java, NoteDatabase.DATABASE_NAME)
+        return Room.inMemoryDatabaseBuilder(app, NoteDatabase::class.java)
             .addCallback(
                 RoomDBInitializer(notesProvider = notesProvider)
             )
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideWorkManager(
+        @ApplicationContext context: Context
+    ): WorkManager {
+        return runCatching { WorkManager.getInstance(context) }
+            .getOrElse {
+                WorkManager.initialize(
+                    context,
+                    Configuration.Builder().build()
+                )
+                WorkManager.getInstance(context)
+            }
+    }
+
+    private class FakeFileApiService : FileApiService {
+        override suspend fun downloadImage(): Response<ResponseBody> {
+            return Response.success(null)
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideFileApiService(): FileApiService = FakeFileApiService()
 
     /**
      * Provides the NoteRepository implementation.
@@ -84,32 +104,6 @@ object AppModule {
             getSingleNoteUseCase = GetSingleNoteUseCase(repository = repository),
             wishListNoteUseCase = WishListNoteUseCase(repository = repository)
         )
-    }
-
-    /**
-     * Provides the FileApiService instance using Retrofit.
-     *
-     * @return The FileApiService instance
-     */
-    @Provides
-    @Singleton
-    fun provideFileApiService(): FileApiService {
-        return Retrofit.Builder()
-            .baseUrl("https://images.unsplash.com")
-            .build()
-            .create(FileApiService::class.java)
-    }
-
-    /**
-     * Provides the WorkManager instance for the application.
-     *
-     * @param context The application context
-     * @return The WorkManager instance
-     */
-    @Singleton
-    @Provides
-    fun provideWorkManager(@ApplicationContext context: Context): WorkManager {
-        return WorkManager.getInstance(context)
     }
 
 }

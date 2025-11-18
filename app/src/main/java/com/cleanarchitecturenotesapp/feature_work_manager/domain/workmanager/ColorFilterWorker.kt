@@ -23,6 +23,11 @@ class ColorFilterWorker @AssistedInject constructor(
     @Assisted private val workerParameters: WorkerParameters
 ) : CoroutineWorker(context, workerParameters) {
 
+    /**
+     * Applies a red color filter to the downloaded image and saves it to cache.
+     *
+     * @return Result indicating success or failure of the color filter operation
+     */
     override suspend fun doWork(): Result {
         val imageFile =
             workerParameters.inputData.getString(WorkerKeys.IMAGE_URI)?.toUri()?.toFile()

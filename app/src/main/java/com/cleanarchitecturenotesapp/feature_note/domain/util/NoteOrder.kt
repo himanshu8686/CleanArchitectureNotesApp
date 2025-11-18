@@ -8,6 +8,12 @@ sealed class NoteOrder(
     class Color(orderType: OrderType): NoteOrder(orderType)
     class Fav(orderType: OrderType): NoteOrder(orderType)
 
+    /**
+     * Creates a copy of this NoteOrder with a different order type.
+     *
+     * @param orderType The new order type to apply
+     * @return A new NoteOrder instance with the specified order type
+     */
     fun copy(orderType: OrderType): NoteOrder {
         return when(this) {
             is Title -> Title(orderType)

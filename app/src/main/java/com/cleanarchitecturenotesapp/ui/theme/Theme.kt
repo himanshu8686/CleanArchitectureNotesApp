@@ -33,6 +33,14 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+/**
+ * Composable function that provides the theme for the entire app.
+ * Supports dark/light mode and dynamic colors on Android 12+.
+ *
+ * @param darkTheme Whether to use dark theme, defaults to system setting
+ * @param dynamicColor Whether to use dynamic colors (Android 12+), defaults to true
+ * @param content The composable content to apply the theme to
+ */
 @Composable
 fun CleanArchitectureNotesAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

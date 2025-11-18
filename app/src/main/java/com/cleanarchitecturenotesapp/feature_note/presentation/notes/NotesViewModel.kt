@@ -32,6 +32,11 @@ class NotesViewModel @Inject constructor(
         )
     }
 
+    /**
+     * Handles events from the UI layer and updates the state accordingly.
+     *
+     * @param event The event to handle
+     */
     fun onEvent(event: NotesEvent) {
         when (event) {
             is NotesEvent.DeleteNote -> {
@@ -72,6 +77,11 @@ class NotesViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Fetches notes from the repository and applies the specified ordering.
+     *
+     * @param noteOrder The order configuration to apply to the notes
+     */
     private fun getNotes(noteOrder: NoteOrder) {
         getNotesJob?.cancel()
         getNotesJob = noteUseCases.getNotesUseCase(noteOrder = noteOrder)

@@ -35,15 +35,25 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.cleanarchitecturenotesapp.core.util.TestTags
 import com.cleanarchitecturenotesapp.feature_note.domain.model.Note
 import com.cleanarchitecturenotesapp.ui.theme.appComponents.appTextField.AppTextField
 import com.cleanarchitecturenotesapp.ui.theme.appComponents.appTextField.rememberAppTextFieldParams
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * Composable function that displays the screen for adding or editing a note.
+ * Allows users to set note title, content, and color.
+ *
+ * @param navController Navigation controller for navigating back after saving
+ * @param note Optional note to edit, null for creating a new note
+ * @param viewModel ViewModel that manages the add/edit note state and business logic
+ */
 @Composable
 fun AddEditNoteScreen(
     navController: NavController,
@@ -142,7 +152,9 @@ fun AddEditNoteScreen(
 
             AppTextField(
                 params = rememberAppTextFieldParams(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(TestTags.TITLE_TEXT_FIELD),
                     value = state.noteTitle,
                     placeholder = {
                         Text(
@@ -166,7 +178,9 @@ fun AddEditNoteScreen(
 
             AppTextField(
                 params = rememberAppTextFieldParams(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(TestTags.CONTENT_TEXT_FIELD),
                     value = state.noteContent,
                     placeholder = {
                         Text(
