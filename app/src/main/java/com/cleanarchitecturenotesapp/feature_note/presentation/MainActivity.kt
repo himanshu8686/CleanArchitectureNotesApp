@@ -1,15 +1,16 @@
 package com.cleanarchitecturenotesapp.feature_note.presentation
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.cleanarchitecturenotesapp.feature_auth.presentation.BiometricAuthScreen
 import com.cleanarchitecturenotesapp.feature_note.domain.model.Note
 import com.cleanarchitecturenotesapp.feature_note.presentation.add_edit_note.AddEditNoteScreen
 import com.cleanarchitecturenotesapp.feature_note.presentation.notes.NotesScreen
@@ -20,7 +21,7 @@ import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     /**
      * Initializes the activity and sets up the navigation graph with all screens.
      *
@@ -37,8 +38,14 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = ScreenRoutes.NotesScreenRoute
+                        startDestination = ScreenRoutes.BiometricAuthScreenRoute
                     ) {
+                        composable<ScreenRoutes.BiometricAuthScreenRoute> {
+                            BiometricAuthScreen(
+                                navController = navController
+                            )
+                        }
+
                         composable<ScreenRoutes.MainConceptScreenRoute> {
                             MainConceptsScreen(navController = navController)
                         }
