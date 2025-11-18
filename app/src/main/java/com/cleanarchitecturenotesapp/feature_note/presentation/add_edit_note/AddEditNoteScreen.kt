@@ -35,9 +35,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.cleanarchitecturenotesapp.core.util.TestTags
 import com.cleanarchitecturenotesapp.feature_note.domain.model.Note
 import com.cleanarchitecturenotesapp.ui.theme.appComponents.appTextField.AppTextField
 import com.cleanarchitecturenotesapp.ui.theme.appComponents.appTextField.rememberAppTextFieldParams
@@ -150,7 +152,9 @@ fun AddEditNoteScreen(
 
             AppTextField(
                 params = rememberAppTextFieldParams(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(TestTags.TITLE_TEXT_FIELD),
                     value = state.noteTitle,
                     placeholder = {
                         Text(
@@ -174,7 +178,9 @@ fun AddEditNoteScreen(
 
             AppTextField(
                 params = rememberAppTextFieldParams(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(TestTags.CONTENT_TEXT_FIELD),
                     value = state.noteContent,
                     placeholder = {
                         Text(
