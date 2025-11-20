@@ -4,6 +4,9 @@ import kotlinx.serialization.Serializable
 sealed class ScreenRoutes{
 
     @Serializable
+    data object BiometricAuthScreenRoute: ScreenRoutes()
+
+    @Serializable
     data object MainConceptScreenRoute: ScreenRoutes()
 
     @Serializable
