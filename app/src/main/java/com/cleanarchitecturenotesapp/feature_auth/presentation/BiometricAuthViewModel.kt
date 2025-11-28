@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -72,7 +73,9 @@ class BiometricAuthViewModel @Inject constructor(
                 // Authentication is triggered from the screen with activity context
             }
             is BiometricAuthEvent.SkipAuth -> {
-                _state.value = _state.value.copy(authenticationSuccess = true)
+                _state.update {
+                    it.copy(authenticationSuccess = true)
+                }
             }
             is BiometricAuthEvent.CheckAvailability -> {
                 checkBiometricAvailability()
@@ -87,13 +90,17 @@ class BiometricAuthViewModel @Inject constructor(
      */
     fun authenticate(activity: FragmentActivity) {
         if (!state.value.isBiometricAvailable) {
-            _state.value = _state.value.copy(
-                errorMessage = "Biometric authentication is not available"
-            )
+            _state.update {
+                it.copy(
+                    errorMessage = "Biometric authentication is not available"
+                )
+            }
             return
         }
 
-        _state.value = _state.value.copy(isLoading = true)
+        _state.update {
+            it.copy(isLoading = true)
+        }
 
         biometricAuthManager.authenticate(
             activity = activity,
@@ -111,53 +118,51 @@ class BiometricAuthViewModel @Inject constructor(
      *
      * @param result The result of the biometric authentication
      */
-    fun updateAuthResult(result: BiometricAuthResult) {
-        _state.value = when (result) {
-            is BiometricAuthResult.Success -> {
-                _state.value.copy(
-                    isLoading = false,
-                    authenticationSuccess = true,
-                    errorMessage = null,
-                    needsEnrollment = false
-                )
-            }
-            is BiometricAuthResult.Error -> {
-                _state.value.copy(
-                    isLoading = false,
-                    errorMessage = result.errorMessage,
-                    isBiometricAvailable = false,
-                    needsEnrollment = result.errorCode == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
-                )
-            }
-            is BiometricAuthResult.Failed -> {
-                _state.value.copy(
-                    isLoading = false,
-                    errorMessage = result.errorMessage
-                )
-            }
-            is BiometricAuthResult.Cancelled -> {
-                _state.value.copy(
-                    isLoading = false,
-                    errorMessage = null
-                )
+    private fun updateAuthResult(result: BiometricAuthResult) {
+        _state.update { current ->
+            when (result) {
+                is BiometricAuthResult.Success -> {
+                    current.copy(
+                        isLoading = false,
+                        authenticationSuccess = true,
+                        errorMessage = null,
+                        needsEnrollment = false
+                    )
+                }
+
+                is BiometricAuthResult.Error -> {
+                    current.copy(
+                        isLoading = false,
+                        errorMessage = result.errorMessage,
+                        isBiometricAvailable = false,
+                        needsEnrollment = result.errorCode == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
+                    )
+                }
+
+                is BiometricAuthResult.Failed -> {
+                    current.copy(
+                        isLoading = false,
+                        errorMessage = result.errorMessage
+                    )
+                }
+
+                is BiometricAuthResult.Cancelled -> {
+                    current.copy(
+                        isLoading = false,
+                        errorMessage = null
+                    )
+                }
             }
         }
-    }
-
-    /**
-     * Sets the loading state.
-     *
-     * @param isLoading Whether authentication is in progress
-     */
-    fun setLoading(isLoading: Boolean) {
-        _state.value = _state.value.copy(isLoading = isLoading)
     }
 
     /**
      * Clears the error message.
      */
     fun clearError() {
-        _state.value = _state.value.copy(errorMessage = null)
+        _state.update {
+            it.copy(errorMessage = null)
+        }
     }
 
     /**
@@ -166,22 +171,26 @@ class BiometricAuthViewModel @Inject constructor(
     private fun checkBiometricAvailability() {
         viewModelScope.launch {
             val result = biometricAuthManager.isBiometricAvailable()
-            _state.value = when (result) {
-                is BiometricAuthResult.Success -> {
-                    _state.value.copy(
-                        isBiometricAvailable = true,
-                    errorMessage = null,
-                    needsEnrollment = false
-                    )
+            _state.update { current ->
+                when (result) {
+                    is BiometricAuthResult.Success -> {
+                        current.copy(
+                            isBiometricAvailable = true,
+                            errorMessage = null,
+                            needsEnrollment = false
+                        )
+                    }
+
+                    is BiometricAuthResult.Error -> {
+                        current.copy(
+                            isBiometricAvailable = false,
+                            errorMessage = result.errorMessage,
+                            needsEnrollment = result.errorCode == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
+                        )
+                    }
+
+                    else -> current
                 }
-                is BiometricAuthResult.Error -> {
-                    _state.value.copy(
-                        isBiometricAvailable = false,
-                    errorMessage = result.errorMessage,
-                    needsEnrollment = result.errorCode == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
-                    )
-                }
-                else -> _state.value
             }
         }
     }
